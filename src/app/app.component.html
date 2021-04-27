@@ -1,0 +1,32 @@
+<div class="container">
+  <mat-toolbar color="primary" class="toolB">
+    <mat-toolbar-row> 
+      <span >
+      <p class="title" *ngIf="!Logged"> {{titre}} </p>
+      <a routerLink="/home" class="title" *ngIf="Logged">{{titre}}</a>
+    </span>
+    <span class="example-spacer"></span>
+  <form ngForm #LoginForm class="form" (submit)= login() *ngIf="!Logged"  >
+    <mat-form-field appearance="legacy" class="form">
+      <mat-label>Enter your login</mat-label>
+      <input matInput placeholder="Placeholder" [(ngModel)]="Login" name="Login">
+    </mat-form-field>
+    <mat-form-field appearance="legacy" class="form">
+      <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'"  [(ngModel)]="Password" name="Password">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    </mat-form-field>
+      <button mat-button >
+        login
+      </button>
+    </form>
+    <button mat-button *ngIf="Logged" (click)= logout() >
+      logout
+    </button>
+  </mat-toolbar-row> 
+  </mat-toolbar>
+<!--<button mat-flat-button color="primary" (click)="peuplerBD()">PeuplerBD avec données de test</button>-->
+</div>
+<router-outlet *ngIf="Logged"></router-outlet>

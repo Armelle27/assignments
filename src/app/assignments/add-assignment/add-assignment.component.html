@@ -1,0 +1,41 @@
+<mat-card class="card">
+  <form ngForm #assignmentForm class="form" (submit)="onSubmit(); assignmentForm.reset()">
+    <mat-form-field>
+      <mat-label>Entrez le nom de l'élève</mat-label>
+      <input required matInput placeholder="Nom de l'elève" [(ngModel)]="nomEleve" name="auteur">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Entrez le nom du devoir</mat-label>
+      <input required matInput placeholder="Nom de l'assignment" [(ngModel)]="nomAssignment" name="nom">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Choisissez une date de rendu</mat-label>
+  
+      <input required matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date">
+  
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  
+      <mat-datepicker #picker></mat-datepicker>
+  
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+      <mat-label>Remarques</mat-label>
+      <textarea matInput [(ngModel)]="remarques" name="rques"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Matière</mat-label>
+        <mat-select [(ngModel)]="matiere" name="date">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+    <nav>
+        <button mat-stroked-button color="primary">
+          Ajouter un devoir
+        </button>
+    </nav>
+  </form>
+  </mat-card>

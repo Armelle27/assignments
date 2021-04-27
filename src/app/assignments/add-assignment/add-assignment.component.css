@@ -1,0 +1,11 @@
+
+.form {
+  display:flex;
+  flex-direction: column;
+  margin:5px;
+}
+
+.card{
+  display: block;
+  margin-top: 10px;
+}
