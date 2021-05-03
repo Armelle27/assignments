@@ -1,27 +1,47 @@
-# AssignmentApp
+# assignments
+***
+  Nous avons réaliser une application de gestion des assignments qui permet de manière basique de faire du CRUD
+  
+  
+  
+ # Détails du travail
+ ***
+ 
+  Nous avons créé deux composants principaux :
+  - celui qui gère l'ajout,la suppression et la modification de tous les assignements ainsi que l'affichage des assignments rendus
+  - Celui qui gère l'affichage des assignments non rendus
+  
+  Donc nous avons donc trois trois composants fils : 
+  - add-assignment
+  - assignement-détail
+  - edit-assignment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+  Nous avons un dossier shared qui renferme :
+  - les services partagés par les composants 
+    - le service d'authentification
+    - le service des composants principaux 
+  
+  Nous avons modifier l'api de connexion à la base de données pour ajouer les nouveaux attributs de la classe assignments
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Processus pour faire tourner l'application
 
-## Code scaffolding
+## Pour l'API ( ne pas oublier de changer les données de connexion dans le fichier server.js)
+saisir dans le terminal : npm install
+ensuite : npm start
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Pour l'application
 
-## Build
+saisir dans le terminal : npm install
+ensuite : ng serve
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+# l'application est hebergé sur heroku aussi
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- https://heroku-assigment.herokuapp.com/
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
