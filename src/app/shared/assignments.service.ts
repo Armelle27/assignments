@@ -14,6 +14,9 @@ export class AssignmentsService {
   index:number;
   constructor(private loggingService:LoggingService,
               private http:HttpClient) { }
+  
+    //uri = "http://localhost:8010/api/assignments";
+   // ur = "http://localhost:8010/api/assignmentsNr";
 
    ur = "https://api-emsi.herokuapp.com/api/assignmentsNr";
    uri = "https://api-emsi.herokuapp.com/api/assignments";
