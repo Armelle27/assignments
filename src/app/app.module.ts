@@ -16,7 +16,10 @@ import { MatCheckboxModule} from '@angular/material/checkbox';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatGridListModule} from '@angular/material/grid-list';
-import {MatSelectModule} from '@angular/material/select'
+import {MatSelectModule} from '@angular/material/select';
+import {MatStepperModule} from '@angular/material/stepper';
+import {ReactiveFormsModule} from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -27,6 +30,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { EditAssigmentComponent } from './assignments/edit-assigment/edit-assigment.component';
 import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AssignmentsRendusComponent } from './assignments-rendus/assignments-rendus.component';
+import { AssignmentsDetailsNonrenduComponent } from './assignments/assignments-details-nonrendu/assignments-details-nonrendu.component'; 
 
 const routes:Routes = [
   {
@@ -39,13 +45,27 @@ const routes:Routes = [
     path:"add", component:AddAssignmentComponent
   },
   {
-    path:"assignments/:id", component:AssignmentDetailComponent
+    path:"assignments/:id", component:AssignmentDetailComponent,
+  },
+  {
+    path:"NonRendus/:id", component:AssignmentsDetailsNonrenduComponent, outlet:"nonRendu"
   },
   {
     path:"assignments/:id/edit",
     component:EditAssigmentComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path:"NonRendus/:id/edit",
+    component:EditAssigmentComponent,
+    canActivate: [AuthGuard],
+    outlet:"nonRendu"
+  },
+  {
+    path:"NonRendus", component:AssignmentsRendusComponent, outlet:"nonRendu"
+    
+  },
+  
 ]
 
 @NgModule({
@@ -55,7 +75,9 @@ const routes:Routes = [
     RenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssigmentComponent
+    EditAssigmentComponent,
+    AssignmentsRendusComponent,
+    AssignmentsDetailsNonrenduComponent
   ],
   imports: [
     BrowserModule,
@@ -65,8 +87,9 @@ const routes:Routes = [
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatSlideToggleModule,MatToolbarModule,MatGridListModule,
     MatNativeDateModule, MatListModule, MatCardModule, MatCheckboxModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule
+    RouterModule.forRoot(routes),MatStepperModule,
+    HttpClientModule, MatTabsModule,ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

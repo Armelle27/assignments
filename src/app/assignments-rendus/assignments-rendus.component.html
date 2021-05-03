@@ -1,0 +1,38 @@
+
+<main class="container">
+    <div class="pagination">
+      <button (click)="premierePage()" class="boutonsPagination" mat-icon-button>
+        <mat-icon>first_page</mat-icon>
+      </button>
+      <button (click)="pagePrecedente()" [disabled]="!hasPrevPage" class="boutonsPagination" mat-icon-button>
+       <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button (click)="pageSuivante()" [disabled]="!hasNextPage" class="boutonsPagination" mat-icon-button>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+      <button (click)="dernierePage()" mat-icon-button>
+        <mat-icon>last_page</mat-icon></button>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <mat-grid-list cols="4" *ngFor="let a of assignments" rowHeight="2:3">
+      <mat-grid-tile>
+        <mat-card >
+          <mat-card-header>
+            <div mat-card-avatar style="  background-image: url({{a.photoProf}});background-size: cover;"></div>
+            <mat-card-title>{{a.nom}}</mat-card-title>
+            <mat-card-subtitle>{{a.dateDeRendu|date}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src={{a.photoMat}}>
+          <mat-card-content>
+            <p>
+             By {{a.auteur}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+          <a [routerLink]="[a.id]"><button mat-raised-button color="primary" class="details">Details</button></a>
+          </mat-card-actions>
+        </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+  </main>

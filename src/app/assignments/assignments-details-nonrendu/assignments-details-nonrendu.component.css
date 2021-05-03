@@ -1,0 +1,13 @@
+#bottom {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .err{
+    margin-top: 10px;
+  }
+  
+  p {
+    color: white;
+  }

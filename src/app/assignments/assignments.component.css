@@ -13,6 +13,7 @@
 {
   display: flex;
   flex-direction: rows;
+  align-self: center;
 }
 
 .boutonsPagination {

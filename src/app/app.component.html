@@ -2,11 +2,11 @@
   <mat-toolbar color="primary" class="toolB">
     <mat-toolbar-row> 
       <span >
-      <p class="title" *ngIf="!Logged"> {{titre}} </p>
-      <a routerLink="/home" class="title" *ngIf="Logged">{{titre}}</a>
+      <p class="titre" *ngIf="!Logged"> {{titre}} </p>
+      <a routerLink="/home" class="title" *ngIf="Logged" (click)="SelectedIndex()" >{{titre}}</a>
     </span>
     <span class="example-spacer"></span>
-  <form ngForm #LoginForm class="form" (submit)= login() *ngIf="!Logged"  >
+  <form ngForm #LoginForm class="form" (submit)= login() *ngIf="!Logged else Logged"  >
     <mat-form-field appearance="legacy" class="form">
       <mat-label>Enter your login</mat-label>
       <input matInput placeholder="Placeholder" [(ngModel)]="Login" name="Login">
@@ -22,11 +22,32 @@
         login
       </button>
     </form>
-    <button mat-button *ngIf="Logged" (click)= logout() >
+    <button mat-button *ngIf="Logged" (click)= logout()>
       logout
     </button>
   </mat-toolbar-row> 
   </mat-toolbar>
-<!--<button mat-flat-button color="primary" (click)="peuplerBD()">PeuplerBD avec données de test</button>-->
 </div>
-<router-outlet *ngIf="Logged"></router-outlet>
+<div *ngIf="!Logged">
+    <mat-card class="card2">
+        <h1>
+         Bienvenue sur notre {{titre}}
+        </h1>
+    </mat-card>
+  
+  
+ 
+
+</div>
+<div class="container" *ngIf="Logged">
+<mat-tab-group mat-align-tabs="center" [selectedIndex]="index" >
+    <mat-tab label="First" role="button"><ng-template mat-tab-label class="tabs">
+      <a  routerLink="/home" class="title" (click)="SelectedIndex()" class="tabs">Devoirs rendus</a>
+    </ng-template>
+    <router-outlet></router-outlet></mat-tab>
+  <mat-tab label="Second"><ng-template mat-tab-label class="tabs">
+    <a  (click)="NSelectedIndex()"   [routerLink]="[{ outlets: { 'nonRendu': ['NonRendus'] }}]" class="title" class="tabs">Devoirs à rendre</a>
+  </ng-template>
+  <router-outlet name="nonRendu"></router-outlet></mat-tab>
+</mat-tab-group>
+</div>

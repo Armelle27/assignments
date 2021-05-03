@@ -27,9 +27,18 @@
       <mat-form-field appearance="outline">
         <mat-label>Matière</mat-label>
         <mat-select [(ngModel)]="matiere" name="date">
-          <mat-option value="one">Sécurité Réseau</mat-option>
-          <mat-option value="two">Base de données</mat-option>
+          <mat-option value="securite">Sécurité Réseau</mat-option>
+          <mat-option value="bd">Base de données</mat-option>
+          <mat-option value="ang">Angular</mat-option>
+          <mat-option value="tw">Technologie Web</mat-option>
+          <mat-option value="cp">Communication professionnelle</mat-option>
+          <mat-option value="angl">Anglais</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Entrez la note</mat-label>
+        <input matInput [(ngModel)]="note" name="note" type="number">
       </mat-form-field>
   
     <nav>

@@ -1,23 +1,22 @@
 import { Component,  OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Assignment } from '../assignment.model';
 
 @Component({
-  selector: 'app-assignment-detail',
-  templateUrl: './assignment-detail.component.html',
-  styleUrls: ['./assignment-detail.component.css'],
+  selector: 'app-assignments-details-nonrendu',
+  templateUrl: './assignments-details-nonrendu.component.html',
+  styleUrls: ['./assignments-details-nonrendu.component.css']
 })
-export class AssignmentDetailComponent implements OnInit {
+export class AssignmentsDetailsNonrenduComponent implements OnInit {
+
   assignmentTransmis:Assignment;
 
   constructor(private assignmentsService:AssignmentsService,
               private route:ActivatedRoute,
               private router:Router,
-              private authService:AuthService,
-              private _snackBar: MatSnackBar) {}
+              private authService:AuthService) {}
 
   ngOnInit(): void {
     // on doit récupérer l'id dans l'URL, et on doit utiliser
@@ -38,25 +37,33 @@ export class AssignmentDetailComponent implements OnInit {
       })
   }
 
+  onAssignmentRendu() {
+    if (this.assignmentTransmis.note === 0 ) {
+      //this.router.navigate(["assignments", this.assignmentTransmis.id, "edit"]);
+    }else{
+      this.assignmentTransmis.rendu = true;
+9
+      this.assignmentsService.updateAssignment(this.assignmentTransmis)
+      .subscribe(reponseObject => {
+        console.log(reponseObject.message);
+        this.router.navigate([{ outlets: { 'nonRendu':'NonRendus'} }]);
+      });
+    }
+    
+  }
 
   onDelete() {
     this.assignmentsService.deleteAssignment(this.assignmentTransmis)
     .subscribe(reponseObject => {
       console.log(reponseObject.message);
       this.assignmentTransmis = null;
-      
-      this._snackBar.open(this.assignmentTransmis.nom + " supprimé", "Fermer");
-      if (this.assignmentTransmis.rendu) {
-        this.router.navigate(['/home', { outlets: { 'nonRendu': null} }]);
-      } else {
-        this.router.navigate([{ outlets: { 'nonRendu': 'NonRendus'} }]);
-      }
-     
+      // on vaigue programmatiquement
+      this.router.navigate(["/home"]);
     })
   }
 
-  onClickEdit() {
-    this.router.navigate(["assignments", this.assignmentTransmis.id, "edit"],
+  onClickEditNr() {
+    this.router.navigate([{ outlets: { 'nonRendu': ['NonRendus',this.assignmentTransmis.id, 'edit']} }],
     {
       queryParams: {id:this.assignmentTransmis.id, nom:this.assignmentTransmis.nom, matiere:this.assignmentTransmis.matiere},
       fragment:"SECTION1"

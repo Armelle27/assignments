@@ -8,4 +8,6 @@ export class Assignment {
   dateDeRendu:Date;
   rendu?:boolean;
   remarques:string;
+  photoProf :string;
+  photoMat :string;
 }

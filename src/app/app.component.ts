@@ -1,33 +1,47 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  titre = "Application de gestion d'Assignments POUR HEROKU CETTE FOIS-CI !";
+  titre = "Application de gestion d'assignments";
   hide = true;
+  selectedIndex : number = 0;
 
   //pour l'authentification
   Login:string;
   Password:string;
   Logged = false;
   NotLogged = true;
+  updateSubscription: any;
+  index:number;
 
   constructor(private authService:AuthService,
               private router:Router,
-              private assignmentsService:AssignmentsService) {}
+              private assignmentsService:AssignmentsService) {
+              }
 
+              ngOnInit(): void {
+                // appelée avant affichage du composant
+                console.log(
+                  'Composant assignments, dans le ngOnInit, on demande aux service le tableau des assignments'
+                );
+               
+              }
+  
   login() {
     if(this.authService.loggedIn) {
       this.authService.logOut();
       this.router.navigate(["/home"]);
     } else {
-      console.log("okay.")
+      console.log("connected")
       console.log(this.Login);
       console.log(this.Password);
       this.authService.logIn(this.Login,this.Password);
@@ -41,14 +55,12 @@ export class AppComponent {
    this.Logged = false;
    this.router.navigate(["/"]);
   }
-
-  peuplerBD() {
-    //this.assignmentsService.peuplerBaseAvecDonneesDeTest();
-    this.assignmentsService.peuplerBDJoin()
-       .subscribe((reponse) => {
-         console.log("### BD PEUPLEE ! ###");
-         // on navigue vers la page d'accueil pour afficher la liste
-         this.router.navigate(["/home"]);
-       })
+  
+  SelectedIndex(){
+    this.index = 0;
   }
+  NSelectedIndex(){
+    this.index = 1;
+  }
+
 }

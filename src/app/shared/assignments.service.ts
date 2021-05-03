@@ -11,29 +11,31 @@ import { data } from './assignmentsData';
   providedIn: 'root'
 })
 export class AssignmentsService {
+  index:number;
   constructor(private loggingService:LoggingService,
               private http:HttpClient) { }
 
-    //uri = "http://localhost:8010/api/assignments";
-   uri = "Access-Control-Allow-Origin: https://api-emsi.herokuapp.com/api/assignments";
+    uri = "http://localhost:8010/api/assignments";
+    ur = "http://localhost:8010/api/assignmentsNr";
+   //uri = "Access-Control-Allow-Origin: https://api-emsi.herokuapp.com/api/assignments";
 
-  getAssignments():Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.uri);
+  getAssignments(params):Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(this.uri,{ params });
   }
 
   getAssignmentsPagines(page:number, limit:number):Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri+ "?page=" + page + "&limit=" + limit);
   }
 
+  getAssignmentsNonRendu(page:number, limit:number):Observable<Assignment[]> {
+    return this.http.get<Assignment[]>(this.ur+ "?page=" + page + "&limit=" + limit);
+    }
+
   getAssignment(id:number):Observable<Assignment> {
     return this.http.get<Assignment>(this.uri + "/" + id)
     .pipe(
       tap(a => {
         console.log("Dans pipe/tap j'ai récupéré assignement nom = " +a.nom)
-      }),
-      map(a => {
-        a.nom += " ALTERE PAR LE MAP";
-        return a;
       }),
       catchError(this.handleError<Assignment>("getAssignment avec id = " + id))
     );
@@ -81,20 +83,5 @@ export class AssignmentsService {
         console.log(reponseObject.message);
       })
     })
-  }
-
-  // autre version qui permet de récupérer un subscribe une fois que tous les inserts
-  // ont été effectués
-  peuplerBDJoin(): Observable<any> {
-    const calls=[];
-
-    data.forEach((a) => {
-      const new_assignment = new Assignment();
-      new_assignment.nom = a.nom;
-      new_assignment.dateDeRendu = new Date(a.dateDeRendu);
-      new_assignment.rendu = false;
-      calls.push(this.addAssignment(new_assignment));
-    });
-    return forkJoin(calls); // renvoie un seul Observable pour dire que c'est fini
   }
 }
