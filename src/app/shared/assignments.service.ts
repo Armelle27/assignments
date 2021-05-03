@@ -15,9 +15,8 @@ export class AssignmentsService {
   constructor(private loggingService:LoggingService,
               private http:HttpClient) { }
 
-    uri = "http://localhost:8010/api/assignments";
-    ur = "http://localhost:8010/api/assignmentsNr";
-   //uri = "Access-Control-Allow-Origin: https://api-emsi.herokuapp.com/api/assignments";
+   ur = "https://api-emsi.herokuapp.com/api/assignmentsNr";
+   uri = "https://api-emsi.herokuapp.com/api/assignments";
 
   getAssignments(params):Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri,{ params });
